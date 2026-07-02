@@ -1,0 +1,14 @@
+# .gitignore — Tema 10 Pipeline End-to-End
+#data/
+#artifacts/
+#reportes/
+#mlruns/
+#mlartifacts/
+__pycache__/
+#*.pyc
+#*.pyo
+.coverage
+.pytest_cache/
+*.log
+.env*
+#gcp-sa-key.json

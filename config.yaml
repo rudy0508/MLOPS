@@ -1,0 +1,46 @@
+# config.yaml — Configuración centralizada del pipeline (Hydra)
+# Todos los parámetros en un solo lugar.
+# Ejecutar con: python main.py
+
+main:
+  project_name: model-credit-mlflow
+  experiment_name: credit_risk
+  mlflow_tracking_uri: mlruns          # ruta local; cambiar a URL remota en producción
+  random_state: 42
+
+  # Etapas a ejecutar (comentar las que no se necesiten)
+  execute_steps:
+    - download
+    - preprocess
+    - segregate
+    - check_data
+    - random_forest
+    - evaluate
+    - drift
+
+data:
+  raw_path:   data/credit_data_raw.csv
+  clean_path: data/credit_data_clean.csv
+  train_path: data/credit_train.csv
+  test_path:  data/credit_test.csv
+  test_size:  0.20
+
+model:
+  n_estimators:       [100, 200, 300]
+  max_depth:          [5, 8, 10]
+  min_samples_split:  [2, 5, 10]
+  cv_folds:           5
+  scoring:            f1
+  auc_threshold:      0.80      # quality gate: falla si AUC < este valor
+  f1_threshold:       0.70
+
+drift:
+  reference_path:  data/credit_train.csv
+  current_path:    data/credit_test.csv
+  drift_threshold: 0.30          # alerta si >30% features con drift
+
+serve:
+  host: 0.0.0.0
+  port: 8000
+  model_name: CreditRiskModel
+  model_stage: Production
