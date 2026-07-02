@@ -1,0 +1,7 @@
+{
+  "drift_detectado": false,
+  "features_con_drift": 1,
+  "total_features": 8,
+  "share_drifted": 0.125,
+  "umbral": 0.3
+}
